@@ -6,7 +6,7 @@ public class Orchestra {
 
 	private ArrayList<Musician> musiciansOrchestra;
 	private int numberOfMusicians;
-	private final boolean isInitialized;
+	private boolean isInitialized = false;
 	
 	public Orchestra(ArrayList<Musician> musiciansOrchestra) {
 		checkIfNull(musiciansOrchestra);
