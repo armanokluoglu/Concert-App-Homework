@@ -3,17 +3,21 @@ package Business;
 public class Musician implements MusicianInterface {
 	private Tempo tempo;
 	private ChangeInTempo changeInTempo;
+	private boolean isInitialized = false;
 	
 	public Musician() {
-		this.tempo = null;
-		this.changeInTempo = null;
+		tempo = null;
+		changeInTempo = null;
+		isInitialized = true;
 	}
 	
 	public Musician(Tempo tempo) {
 		setTempo(tempo);
+		isInitialized = true;
 	}
 	
 	public Tempo getTempo() {
+		checkInitialization();
 		return tempo;
 	}
 
@@ -23,6 +27,7 @@ public class Musician implements MusicianInterface {
 	}
 
 	public ChangeInTempo getChangeInTempo() {
+		checkInitialization();
 		return changeInTempo;
 	}
 
@@ -32,6 +37,7 @@ public class Musician implements MusicianInterface {
 	}
 	
 	public String playPiece(Piece piece) {
+		checkInitialization();
 		String output = "";
 		String[] parts = piece.getParts();
 		int partIndex = 1;
@@ -58,5 +64,11 @@ public class Musician implements MusicianInterface {
 			}
 		}
 		throw new IllegalArgumentException("Given change in tempo is not valid.");
+	}
+	
+	private void checkInitialization() {
+		if(!isInitialized) {
+			throw new IllegalStateException("Given musician object was not created properly.");
+		}
 	}
 }
