@@ -1,5 +1,5 @@
 package Business;
 
 public interface MusicianInterface {
-	public String playPiece(String piece);
+	public String playPiece(Piece piece);
 }

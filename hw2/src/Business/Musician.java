@@ -30,7 +30,18 @@ public class Musician implements MusicianInterface {
 		checkChangeInTempo(changeInTempo);
 		this.changeInTempo = changeInTempo;
 	}
-
+	
+	public String playPiece(Piece piece) {
+		String output = "";
+		String[] parts = piece.getParts();
+		int partIndex = 1;
+		for(String part: parts) {
+			String line = part.replaceAll("^[\\.\\d]+", "");
+			output = output + "Part " + partIndex + ": " + line;
+		}
+		return output;
+	}
+	
 	private void checkTempo(Tempo tempo) {
 		for(Tempo tempoEnum: Tempo.values()) {
 			if(tempo == tempoEnum) {
@@ -47,12 +58,5 @@ public class Musician implements MusicianInterface {
 			}
 		}
 		throw new IllegalArgumentException("Given change in tempo is not valid.");
-	}
-	
-	public String playPiece(String piece) {
-		String[] parts = piece.split("\n");
-		int partAmount = parts.length;
-		
-		return piece;
 	}
 }
