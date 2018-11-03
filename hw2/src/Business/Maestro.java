@@ -3,7 +3,7 @@ package Business;
 public class Maestro {
 
 	private Orchestra musicians;
-	private final boolean isInitialized;
+	private boolean isInitialized = false;
 	
 	public Maestro(Orchestra musicians) {
 		if(musicians == null) {
@@ -19,51 +19,49 @@ public class Maestro {
 		}
 		checkInitialization();
 		Tempo newTempo = null;
-		switch(numberOfBeatsInAPart) {
-			case 1 : case 2 : case 3 : case 4 : case 5 : case 6 : case 7 :
+			if((numberOfBeatsInAPart > 0) && (numberOfBeatsInAPart < 8)) {
 				newTempo = Tempo.prestissimo;
-				break;
-				
-			case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15:
+			}
+			else if((numberOfBeatsInAPart >= 8) && (numberOfBeatsInAPart < 16)) {
 				newTempo = Tempo.vivace;
-				break;
+			}
 				
-			case 16: case 17:
+			else if((numberOfBeatsInAPart >= 16) && (numberOfBeatsInAPart < 18)) {
 				newTempo = Tempo.allegretto;
-				break;
-				
-			case 18: case 19: case 20: case 21:
+			}
+			
+			else if((numberOfBeatsInAPart >= 18) && (numberOfBeatsInAPart < 22)) {
 				newTempo = Tempo.moderato;
-				break;
-				
-			case 22: 
+			}
+			
+			else if((numberOfBeatsInAPart >= 22) && (numberOfBeatsInAPart < 23)) {
 				newTempo = Tempo.adagietto;
-				break;
+			}
 			
-			case 23:
+			else if((numberOfBeatsInAPart >= 23) && (numberOfBeatsInAPart < 24)) {
 				newTempo = Tempo.andante;
-				break;
+			}
 			
-			case 24: case 25: case 26:
+			else if((numberOfBeatsInAPart >= 24) && (numberOfBeatsInAPart < 27)) {
 				newTempo = Tempo.larghetto;
-				break;
-			
-			case 27: case 28:
+			}
+		
+			else if((numberOfBeatsInAPart >= 27) && (numberOfBeatsInAPart < 29)) {
 				newTempo = Tempo.lento;
-				break;
-			
-			case 29: case 30: case 31: case 32:
+			}
+		
+			else if((numberOfBeatsInAPart >= 29) && (numberOfBeatsInAPart < 33)) {
 				newTempo = Tempo.grave;
-				break;
-				
-			case 33: case 34: case 35: case 36:
-				newTempo = Tempo.larghissimo;
-				break;
+			}
 			
-			default:
-				throw new IllegalArgumentException("Number of beats does not match with any tempo.");
-		}
-		setTempoAs(newTempo);
+			else if((numberOfBeatsInAPart >= 33) && (numberOfBeatsInAPart < 37)) {
+				newTempo = Tempo.larghissimo;
+			}
+			
+			else {
+				throw new IllegalArgumentException("Given number of beats is illegal, therefore it cannot be set.");
+			}
+			setTempoAs(newTempo);
 	}
 	
 	
