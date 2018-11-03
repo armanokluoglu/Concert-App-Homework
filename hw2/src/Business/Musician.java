@@ -1,48 +1,48 @@
 package Business;
 
 public class Musician implements MusicianInterface {
-	private String tempo;
-	private String changeInTempo;
+	private Tempo tempo;
+	private ChangeInTempo changeInTempo;
 	
 	public Musician() {
-		this.tempo = "No tempo";
-		this.changeInTempo = "No change in tempo.";
+		this.tempo = null;
+		this.changeInTempo = null;
 	}
 	
-	public Musician(String tempo) {
+	public Musician(Tempo tempo) {
 		setTempo(tempo);
 	}
 	
-	public String getTempo() {
+	public Tempo getTempo() {
 		return tempo;
 	}
 
-	public void setTempo(String tempo) {
+	public void setTempo(Tempo tempo) {
 		checkTempo(tempo);
 		this.tempo = tempo;
 	}
 
-	public String getChangeInTempo() {
+	public ChangeInTempo getChangeInTempo() {
 		return changeInTempo;
 	}
 
-	public void setChangeInTempo(String changeInTempo) {
+	public void setChangeInTempo(ChangeInTempo changeInTempo) {
 		checkChangeInTempo(changeInTempo);
 		this.changeInTempo = changeInTempo;
 	}
 
-	private void checkTempo(String tempo) {
+	private void checkTempo(Tempo tempo) {
 		for(Tempo tempoEnum: Tempo.values()) {
-			if(Tempo.valueOf(tempo) == tempoEnum) {
+			if(tempo == tempoEnum) {
 				return;
 			}
 		}
 		throw new IllegalArgumentException("Given tempo is not valid.");
 	}
 	
-	private void checkChangeInTempo(String changeInTempo) {
+	private void checkChangeInTempo(ChangeInTempo changeInTempo) {
 		for(ChangeInTempo tempoEnum: ChangeInTempo.values()) {
-			if(ChangeInTempo.valueOf(tempo) == tempoEnum) {
+			if(changeInTempo == tempoEnum) {
 				return;
 			}
 		}
