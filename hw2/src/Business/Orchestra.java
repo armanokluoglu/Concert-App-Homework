@@ -39,6 +39,9 @@ public class Orchestra {
 
 	public void setNumberOfMusicians(int numberOfMusicians) {
 		checkInitialization();
+		if((numberOfMusicians < 0)) {
+			throw new IllegalArgumentException("Given number of musicians cannot be negative.");
+		}
 		this.numberOfMusicians = numberOfMusicians;
 	}
 	
