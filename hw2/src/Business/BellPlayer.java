@@ -2,6 +2,7 @@ package Business;
 
 public class BellPlayer extends PercussionInstrumentMusician {
 
+	private int partCounter = 1;
 	private boolean isInitialized = false;
 	
 	public BellPlayer() {
@@ -11,31 +12,29 @@ public class BellPlayer extends PercussionInstrumentMusician {
 	@Override
 	public String playPiece(Piece piece) {
 		checkInitialization();
-		String whatToPlay = "X";
-		if((this.getTempo() == Tempo.grave) && (this.getChangeInTempo() ==  ChangeInTempo.stretto)) {
-			whatToPlay = getTheNotesForBellPlayer(piece);
+		checkIfNull(piece);
+		Tempo[] tempos = piece.getTempo();
+		String[] parts = piece.getParts();
+		String output = "";
+		if((tempos[partCounter-1] == Tempo.grave) && (piece.getChangeInTempo() == ChangeInTempo.stretto)) {
+			output = "Bell is played: \n";
+			output += "Part " + partCounter + " ";
+			output += parts[partCounter-1].replaceAll("^[\\.\\d]+", "");
+			output += " " + tempos[partCounter-1];
+			output = output.replaceAll("[CDEH]", "X");
 		}
-		return whatToPlay;
-	}
-	
-	private String getTheNotesForBellPlayer(Piece piece) {
-		String notesToGet = "Bell is played: \n";
-		String allPartsOfThePiece = super.playPiece(piece);
-		String[] allPartsArray = allPartsOfThePiece.split("\n");
-		for(String note : allPartsArray) {
-			if((note.charAt(0) == 'F') || (note.charAt(0) == 'G') || (note.charAt(0) == 'A') || (note.charAt(0) == 'B')) {
-				notesToGet += " " + note.charAt(0);
-			}
-			else {
-				notesToGet += " X";
-			}
-		}
-		return notesToGet + " " + this.getTempo().toString();
+		partCounter++;
+		return output;
 	}
 	
 	private void checkInitialization() {
 		if(!isInitialized) {
-			throw new IllegalStateException("Given violinist object was not created proeprly.");
+			throw new IllegalStateException("Given bellplayer object was not created proeprly.");
 		}
+	}
+	
+	private void checkIfNull(Piece piece) {
+		if(piece == null)
+			throw new IllegalArgumentException("Given piece object is null.");
 	}
 }
