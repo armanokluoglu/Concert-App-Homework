@@ -2,6 +2,7 @@ package Business;
 
 public class Drummer extends PercussionInstrumentMusician {
 
+	private int partCounter = 1;
 	private boolean isInitialized = false;
 	
 	public Drummer() {
@@ -12,40 +13,31 @@ public class Drummer extends PercussionInstrumentMusician {
 	public String playPiece(Piece piece) {
 		checkInitialization();
 		checkIfNull(piece);
-		String whatToPlay = "X";
-		if((this.getTempo() == Tempo.prestissimo) || (this.getTempo() == Tempo.vivace) ||
-			this.getTempo() == Tempo.allegretto){
-				whatToPlay = getTheNotesToPlay(piece);
-			}
-		return whatToPlay;
-	}
-	
-	private String getTheNotesToPlay(Piece piece) {
-		checkIfNull(piece);
-		String whatDrummerPlays = "Drummer is played: \n";
-		String allPartsOfThePiece = super.playPiece(piece);
-		String[] allPartsArray = allPartsOfThePiece.split("\n");
-		for(String note : allPartsArray) {
-			if((note.charAt(0) == 'C') || (note.charAt(0) == 'D') || (note.charAt(0) == 'E')) {
-				whatDrummerPlays += " " + note.charAt(0);
-			}
-			else {
-				whatDrummerPlays += " X";
-			}
+		Tempo[] tempos = piece.getTempo();
+		String[] parts = piece.getParts();
+		String output;
+		if(((tempos[partCounter-1] == Tempo.vivace) || (tempos[partCounter-1] == Tempo.prestissimo) ||
+			(tempos[partCounter-1] == Tempo.allegretto)) && (partCounter > parts.length-3)) {
+			output = "Drum is played: \n";
+			output += "Part " + partCounter + " ";
+			output += parts[partCounter-1].replaceAll("^[\\.\\d]+", "");
+			output += " " + tempos[partCounter-1];
+			output = output.replaceAll("[FGABH]", "X");
+		} else {
+			output = "";
 		}
-		return whatDrummerPlays + " " + this.getTempo().toString();
+		partCounter++;
+		return output;
 	}
 	
 	private void checkInitialization() {
 		if(!isInitialized) {
-			throw new IllegalStateException("Given drummer object was not created properly.");
-			
+			throw new IllegalStateException("Given drummer object was not created proeprly.");
 		}
 	}
 	
 	private void checkIfNull(Piece piece) {
-		if(piece == null) {
-			throw new IllegalArgumentException("Given piece argument is null, therefore cannot be played.");
-		}
+		if(piece == null)
+			throw new IllegalArgumentException("Given piece object is null.");
 	}
 }

@@ -1,28 +1,33 @@
 package Business;
 
+import java.util.ArrayList;
+
 public class WoodwindInstrumentMusician extends Musician {
 
 	public WoodwindInstrumentMusician() {
 		super();
 	}
 	
-	public WoodwindInstrumentMusician(Tempo tempo) {
-		super(tempo);
-	}
-	
-	WoodwindInstrumentMusician(WoodwindInstrumentMusician wim){
-		this(wim.getTempo());
-	}
-	
 	@Override
 	public String playPiece(Piece piece) {
-		String whatWillBePlayed = "";
+		checkIfNull(piece);
 		String[] parts = piece.getParts();
-		whatWillBePlayed = getChorusNotes(piece);
-		return whatWillBePlayed;
+		ArrayList<String> chorusParts = piece.getChorus();
+		String output = "";
+		int partIndex = 1;
+		for(String part: parts) {
+			if(chorusParts.contains(part)) {
+				String line = part.replaceAll("^[\\.\\d]+", "");
+				output = output + "Part " + partIndex + ": " + line + "\n";
+				partIndex++;
+			}
+		}
+		return output;
 	}
 	
-	private String getChorusNotes(Piece piece) {
-		String chorus = "";
+	private void checkIfNull(Piece piece) {
+		if(piece == null) {
+			throw new IllegalArgumentException("Given piece object is null, therefore the program cannot play the song.");
+		}
 	}
 }

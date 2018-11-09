@@ -2,7 +2,7 @@ package Business;
 
 public class Celloist extends StringInstrumentMusician {
 
-	
+	private int partCounter = 1;
 	private boolean isInitialized = false;
 	
 	public Celloist() {
@@ -13,13 +13,15 @@ public class Celloist extends StringInstrumentMusician {
 	public String playPiece(Piece piece) {
 		checkInitialization();
 		checkIfNull(piece);
-		String whatCelloistPlays = "Cello is played: \n";
-		String allPartsOfThePiece = super.playPiece(piece);
-		String[] allPartsArray = allPartsOfThePiece.split("\n");
-		for(String note : allPartsArray) {
-			whatCelloistPlays += " " + note.charAt(0);
-		}
-		return whatCelloistPlays + " "  + this.getTempo().toString();
+		Tempo[] tempos = piece.getTempo();
+		String[] parts = piece.getParts();
+		String output = "";
+		output = "Cello is played: \n";
+		output += "Part " + partCounter + " ";
+		output += parts[partCounter-1].replaceAll("^[\\.\\d]+", "");
+		output += " " + tempos[partCounter-1];
+		partCounter++;
+		return output;
 	}
 	
 	private void checkInitialization() {
@@ -28,8 +30,8 @@ public class Celloist extends StringInstrumentMusician {
 		}
 	}
 	
-	private void checkIfNull(Object object) {
-		if(object == null) {
+	private void checkIfNull(Piece piece) {
+		if(piece == null) {
 			throw new IllegalArgumentException("Given piece object was null, therefore cannot be played.");
 		}
 	}

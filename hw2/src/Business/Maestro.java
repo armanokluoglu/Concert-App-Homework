@@ -2,22 +2,18 @@ package Business;
 
 public class Maestro {
 
-	private Orchestra musicians;
 	private boolean isInitialized = false;
 	
-	public Maestro(Orchestra musicians) {
-		if(musicians == null) {
-			throw new IllegalArgumentException("Given orchestra object argument is null.");
-		}
-		this.musicians = musicians;
+	public Maestro() {
 		isInitialized = true;
 	}
 	
-	public void setTempo(int numberOfBeatsInAPart) {
-		if(numberOfBeatsInAPart <= 0) {
-			throw new IllegalArgumentException("Given number of beats is illegal, therefore cannot be set.");
+	public void setTempo(int numberOfBeatsInAPart, Piece piece, int partOfPiece) {
+		if((numberOfBeatsInAPart <= 0) || (partOfPiece <= 0) || (partOfPiece > piece.getTempo().length)) {
+			throw new IllegalArgumentException("Either part of piece or number of beats in a part is invalid.");
 		}
 		checkInitialization();
+		checkIfNull(piece);
 		Tempo newTempo = null;
 			if((numberOfBeatsInAPart > 0) && (numberOfBeatsInAPart < 8)) {
 				newTempo = Tempo.prestissimo;
@@ -59,53 +55,61 @@ public class Maestro {
 			}
 			
 			else {
-				throw new IllegalArgumentException("Given number of beats is illegal, therefore it cannot be set.");
+				throw new IllegalArgumentException("Given number of beats is invalid, therefore it cannot be set.");
 			}
-			setTempoAs(newTempo);
+			setTempoOfPieceAs(newTempo, piece, partOfPiece);
 	}
 	
 	
-	public void setChangeInTempo(int numberOfBeatsInAPiece) {
+	public void setChangeInTempo(int numberOfBeatsInAPart, Piece piece) {
 		checkInitialization();
-		if(numberOfBeatsInAPiece <= 0) {
-			throw new IllegalArgumentException("Given number of beats is illegal, therefore it cannot be set.");
+		checkIfNull(piece);
+		if(numberOfBeatsInAPart <= 0) {
+			throw new IllegalArgumentException("Given number of beats is invalid, therefore it cannot be set.");
 		}
 		ChangeInTempo newChangeInTempo = null;
-		if(numberOfBeatsInAPiece < 83) {
+		if(numberOfBeatsInAPart < 83) {
 			newChangeInTempo = ChangeInTempo.lentando;
 			
-		}else if((numberOfBeatsInAPiece < 125) && (numberOfBeatsInAPiece >= 83)) {
+		}else if((numberOfBeatsInAPart < 125) && (numberOfBeatsInAPart >= 83)) {
 			newChangeInTempo = ChangeInTempo.ritenuto;
 			
-		}else if((numberOfBeatsInAPiece < 132) && (numberOfBeatsInAPiece >= 125)) {
+		}else if((numberOfBeatsInAPart < 132) && (numberOfBeatsInAPart >= 125)) {
 			newChangeInTempo = ChangeInTempo.stretto;
 			
-		}else if((numberOfBeatsInAPiece < 152) && (numberOfBeatsInAPiece >= 132)) {
+		}else if((numberOfBeatsInAPart < 152) && (numberOfBeatsInAPart >= 132)) {
 			newChangeInTempo = ChangeInTempo.accelerando;
 			
 		}else {
-			throw new IllegalArgumentException("Given number of beats is illegal, therefore it cannot be set.");
+			throw new IllegalArgumentException("Given number of beats is invalid, therefore it cannot be set.");
 		}
 		
-		setChangeInTempoAs(newChangeInTempo);
+		setChangeInTempoAs(newChangeInTempo, piece);
 	}
 
 	
-	private void setTempoAs(Tempo aTempo) {
-		for(Musician musician : musicians.getMusiciansOrchestra()) {
-			musician.setTempo(aTempo);
-		}
+	private void setTempoOfPieceAs(Tempo aTempo, Piece piece, int partOfPiece) {
+		checkIfNull(piece);
+		checkInitialization();
+		piece.setTempoOfPart(aTempo, partOfPiece);
+		
 	}
 	
-	private void setChangeInTempoAs(ChangeInTempo changeInTempo) {
-		for(Musician musician : musicians.getMusiciansOrchestra()) {
-			musician.setChangeInTempo(changeInTempo);
-		}
+	private void setChangeInTempoAs(ChangeInTempo changeInTempo, Piece piece) {
+		checkIfNull(piece);
+		checkInitialization();
+		piece.setChangeInTempo(changeInTempo);
 	}
 	
 	private void checkInitialization() {
 		if(!isInitialized) {
 			throw new IllegalStateException("Maestro object was not created properly.");
+		}
+	}
+	
+	private void checkIfNull(Object object) {
+		if(object == null) {
+			throw new IllegalArgumentException("Given argument is null.");
 		}
 	}
 }

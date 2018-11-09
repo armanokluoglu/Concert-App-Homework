@@ -7,29 +7,23 @@ public class PercussionInstrumentMusician extends Musician {
 		super();
 	}
 	
-	public PercussionInstrumentMusician(Tempo tempo) {
-		super(tempo);
-	}
-	
-	PercussionInstrumentMusician(PercussionInstrumentMusician pim){
-		this(pim.getTempo());
-	}
-	
 	@Override
 	public String playPiece(Piece piece) {
 		checkIfNull(piece);
-		String whatWillBePlayed = "";
+		String output = "";
 		String[] parts = piece.getParts();
-		String lastPartToPlay = parts[parts.length-1];
-		String firstPartToPlay = parts[parts.length-2];
-		whatWillBePlayed = whatWillBePlayed + firstPartToPlay;
-		whatWillBePlayed = whatWillBePlayed + lastPartToPlay;
-		return whatWillBePlayed;
+		int partIndex = parts.length-2;
+		for(int index=parts.length-2; index<parts.length; index++) {
+			String line = parts[index].replaceAll("^[\\.\\d]+", "");
+			output = output + "Part " + partIndex + ": " + line + "\n";
+			partIndex++;
+		}
+		return output;
 	}
 	
-	private void checkIfNull(Object object) {
-		if(object == null) {
-			throw new IllegalArgumentException("Given object is null, therefore the program cannot play the song.");
+	private void checkIfNull(Piece piece) {
+		if(piece == null) {
+			throw new IllegalArgumentException("Given piece object is null, therefore the program cannot play the song.");
 		}
 	}
 }

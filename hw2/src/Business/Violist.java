@@ -2,6 +2,7 @@ package Business;
 
 public class Violist extends StringInstrumentMusician{
 
+	private int partCounter = 1;
 	private boolean isInitialized = false;
 	
 	public Violist() {
@@ -12,32 +13,31 @@ public class Violist extends StringInstrumentMusician{
 	public String playPiece(Piece piece) {
 		checkInitialization();
 		checkIfNull(piece);
-		String whatWillBePlayed = "Viola is played: \n";
-		if(this.getChangeInTempo() == ChangeInTempo.ritenuto) {
-			whatWillBePlayed = getTheFirstPart(piece);
+		Tempo[] tempos = piece.getTempo();
+		String[] parts = piece.getParts();
+		ChangeInTempo changeInTempo = piece.getChangeInTempo();
+		String output;
+		if((changeInTempo == ChangeInTempo.ritenuto) && (partCounter > 1)) {
+			output = "";
+		} else {
+			output = "Viola is played: \n";
+			output += "Part " + partCounter + " ";
+			output += parts[partCounter-1].replaceAll("^[\\.\\d]+", "");
+			output += " " + tempos[partCounter-1];
 		}
-		return whatWillBePlayed + " " + this.getTempo().toString();
+		partCounter++;
+		return output;
 	}
-	
-	
-	private String getTheFirstPart(Piece piece) {
-		checkIfNull(piece);
-		String allPartsOfThePiece = super.playPiece(piece);
-		String[] allPartsArray = allPartsOfThePiece.split("\n");
-		String whatViolistPlays = allPartsArray[0];
-		return whatViolistPlays;
-	}
-	
 	
 	private void checkInitialization() {
 		if(!isInitialized) {
-			throw new IllegalStateException("Given violinist object was not created proeprly.");
+			throw new IllegalStateException("Given violist object was not created proeprly.");
 		}
 	}
 	
 	private void checkIfNull(Piece piece) {
 		if(piece == null) {
-			throw new IllegalArgumentException("Given piece argument is null, therefore cannot be played.");
+			throw new IllegalArgumentException("Given piece object is null, therefore cannot be played.");
 		}
 	}
 }
