@@ -1,13 +1,7 @@
 package Business;
 
-public class PercussionInstrumentMusician extends Musician {
+public class PercussionInstrumentMusician implements MusicianInterface {
 	
-	
-	public PercussionInstrumentMusician() {
-		super();
-	}
-	
-	@Override
 	public String playPiece(Piece piece) {
 		checkIfNull(piece);
 		String output = "";

@@ -26,7 +26,11 @@ public class Drummer extends PercussionInstrumentMusician {
 		} else {
 			output = "";
 		}
-		partCounter++;
+		if(partCounter == parts.length) {
+			partCounter = 1;
+		} else {
+			partCounter++;
+		}
 		return output;
 	}
 	

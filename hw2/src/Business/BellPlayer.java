@@ -23,7 +23,11 @@ public class BellPlayer extends PercussionInstrumentMusician {
 			output += " " + tempos[partCounter-1];
 			output = output.replaceAll("[CDEH]", "X");
 		}
-		partCounter++;
+		if(partCounter == parts.length) {
+			partCounter = 1;
+		} else {
+			partCounter++;
+		}
 		return output;
 	}
 	

@@ -2,13 +2,8 @@ package Business;
 
 import java.util.ArrayList;
 
-public class WoodwindInstrumentMusician extends Musician {
+public class WoodwindInstrumentMusician implements MusicianInterface {
 
-	public WoodwindInstrumentMusician() {
-		super();
-	}
-	
-	@Override
 	public String playPiece(Piece piece) {
 		checkIfNull(piece);
 		String[] parts = piece.getParts();

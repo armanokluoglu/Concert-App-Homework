@@ -22,7 +22,11 @@ public class Violinist extends StringInstrumentMusician {
 			output += parts[partCounter-1].replaceAll("^[\\.\\d]+", "");
 			output += " " + tempos[partCounter-1];
 		}
-		partCounter++;
+		if(partCounter == parts.length) {
+			partCounter = 1;
+		} else {
+			partCounter++;
+		}
 		return output;
 	}
 	
