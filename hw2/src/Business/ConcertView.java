@@ -85,35 +85,35 @@ public class ConcertView {
 		//PART II -- PLAYING THE PIECES \\
 		
 		//Playing the first piece....
-		bellPlayer.playPiece(piece1);
-		celloist.playPiece(piece1);
-		drummer.playPiece(piece1);
-		flutist.playPiece(piece1);
-		violinist.playPiece(piece1);
-		violist.playPiece(piece1);
+		System.out.println(bellPlayer.playPiece(piece1));
+		System.out.println(celloist.playPiece(piece1));
+		System.out.println(drummer.playPiece(piece1));
+		System.out.println(flutist.playPiece(piece1));
+		System.out.println(violinist.playPiece(piece1));
+		System.out.println(violist.playPiece(piece1));
 		
 		//Playing the second piece....
-		bellPlayer.playPiece(piece2);
-		celloist.playPiece(piece2);
-		drummer.playPiece(piece2);
-		flutist.playPiece(piece2);
-		violinist.playPiece(piece2);
-		violist.playPiece(piece2);
+		System.out.println(bellPlayer.playPiece(piece2));
+		System.out.println(celloist.playPiece(piece2));
+		System.out.println(drummer.playPiece(piece2));
+		System.out.println(flutist.playPiece(piece2));
+		System.out.println(violinist.playPiece(piece2));
+		System.out.println(violist.playPiece(piece2));
 		
 		//Playing the third piece....
-		bellPlayer.playPiece(piece3);
-		celloist.playPiece(piece3);
-		drummer.playPiece(piece3);
-		flutist.playPiece(piece3);
-		violinist.playPiece(piece3);
-		violist.playPiece(piece3);
+		System.out.println(bellPlayer.playPiece(piece3));
+		System.out.println(celloist.playPiece(piece3));
+		System.out.println(drummer.playPiece(piece3));
+		System.out.println(flutist.playPiece(piece3));
+		System.out.println(violinist.playPiece(piece3));
+		System.out.println(violist.playPiece(piece3));
 		
 		//Playing the last piece....
-		bellPlayer.playPiece(piece4);
-		celloist.playPiece(piece4);
-		drummer.playPiece(piece4);
-		flutist.playPiece(piece4);
-		violinist.playPiece(piece4);
-		violist.playPiece(piece4);
+		System.out.println(bellPlayer.playPiece(piece4));
+		System.out.println(celloist.playPiece(piece4));
+		System.out.println(drummer.playPiece(piece4));
+		System.out.println(flutist.playPiece(piece4));
+		System.out.println(violinist.playPiece(piece4));
+		System.out.println(violist.playPiece(piece4));
 	}
 }
