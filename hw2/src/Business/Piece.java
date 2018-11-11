@@ -2,6 +2,10 @@ package Business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
+
+import Utilities.ChangeInTempo;
+import Utilities.Tempo;
 
 public class Piece {
 	
@@ -15,18 +19,14 @@ public class Piece {
 		isInitialized = true;
 	}
 	
-	public Piece(String piece, Tempo[] tempo, ChangeInTempo changeInTempo) {
+	public Piece(String piece) {
 		checkIfNull(piece);
-		checkIfNull(tempo);
-		checkIfNull(changeInTempo);
 		this.parts = piece.split("\n");
-		setTempo(tempo);
-		setChangeInTempo(changeInTempo);
 		isInitialized = true;
 	}
 	
 	Piece(Piece piece) {
-		this(String.join("\n", piece.getParts()), piece.getTempo(), piece.getChangeInTempo());
+		this(String.join("\n", piece.getParts()));
 	}
 
 	public Tempo[] getTempo() {
@@ -78,6 +78,57 @@ public class Piece {
 		return Arrays.copyOf(parts, parts.length);
 	}
 
+	public int[][] getBeats(){
+		checkInitialization();
+		int[][] beats = new int[parts.length][];
+		int beatIndex = 0;
+		int partIndex = 0;
+		for(String part : parts) {
+			StringTokenizer st = new StringTokenizer(part, " ");
+			String nextNote = ""; 
+			while(st.hasMoreTokens()) {
+				int nextBeat = 0;
+				String beatInString = "";
+				nextNote = st.nextToken();
+				for(int index=1; index < nextNote.length(); index++) {
+					beatInString += nextNote.charAt(index);
+				}
+				nextBeat = Integer.parseInt(beatInString);
+				beats[partIndex][beatIndex] = nextBeat;
+				partIndex++;
+				beatIndex++;
+			}
+		}
+		return beats;
+	}
+	
+	public int getTotalNumberOfBeatsInAPiece() {
+		checkInitialization();
+		int totalOfBeats = 0;
+		int[][] beats = getBeats();
+		for(int partIndex=0; partIndex < beats.length; partIndex++) {
+			for(int beatIndex=0; beatIndex < beats[partIndex].length; beatIndex++) {
+				totalOfBeats += beats[partIndex][beatIndex];
+			}
+		}
+		return totalOfBeats;
+	}
+
+	
+	public int getTotalOfBeatsOfASpecifiedPart(int partNo) {
+		checkInitialization();
+		if(partNo <= 0) {
+			throw new IllegalArgumentException("Given part no is either zero or less.");
+		}
+		int partIndex = partNo-1;
+		int totalOfBeats = 0;
+		int[][] beats = getBeats();
+		for(int beatIndex=0; beatIndex < beats[partIndex].length; beatIndex++) {
+			totalOfBeats += beats[partIndex][beatIndex];
+		}
+		return totalOfBeats;
+	}
+	
 	public void setParts(String[] parts) {
 		checkInitialization();
 		checkIfNull(parts);

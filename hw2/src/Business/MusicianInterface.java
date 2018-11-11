@@ -1,4 +1,6 @@
-package Business;
+package Utilities;
+
+import Business.Piece;
 
 public interface MusicianInterface {
 	

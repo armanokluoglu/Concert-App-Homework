@@ -2,13 +2,15 @@ package Business;
 
 import java.util.ArrayList;
 
+import Utilities.MusicianInterface;
+
 public class Orchestra {
 
-	private ArrayList<Musician> musiciansOrchestra;
+	private ArrayList<MusicianInterface> musiciansOrchestra;
 	private int numberOfMusicians;
 	private boolean isInitialized = false;
 	
-	public Orchestra(ArrayList<Musician> musiciansOrchestra) {
+	public Orchestra(ArrayList<MusicianInterface> musiciansOrchestra) {
 		checkIfNull(musiciansOrchestra);
 		this.musiciansOrchestra = musiciansOrchestra;
 		numberOfMusicians = musiciansOrchestra.size();
@@ -16,12 +18,12 @@ public class Orchestra {
 	}
 	
 	public Orchestra() {
-		musiciansOrchestra = new ArrayList<Musician>();
+		musiciansOrchestra = new ArrayList<MusicianInterface>();
 		numberOfMusicians = 0;
 		isInitialized = true;
 	}
 
-	public ArrayList<Musician> getMusiciansOrchestra() {
+	public ArrayList<MusicianInterface> getMusiciansOrchestra() {
 		checkInitialization();
 		return musiciansOrchestra;
 	}
@@ -31,18 +33,10 @@ public class Orchestra {
 		return numberOfMusicians;
 	}
 
-	public void setMusiciansOrchestra(ArrayList<Musician> musiciansOrchestra) {
+	public void setMusiciansOrchestra(ArrayList<MusicianInterface> musiciansOrchestra) {
 		checkInitialization();
 		checkIfNull(musiciansOrchestra);
 		this.musiciansOrchestra = musiciansOrchestra;
-	}
-
-	public void setNumberOfMusicians(int numberOfMusicians) {
-		checkInitialization();
-		if((numberOfMusicians < 0)) {
-			throw new IllegalArgumentException("Given number of musicians cannot be negative.");
-		}
-		this.numberOfMusicians = numberOfMusicians;
 	}
 	
 	private void checkInitialization() {
@@ -51,7 +45,7 @@ public class Orchestra {
 		}
 	}
 	
-	private void checkIfNull(ArrayList<Musician> musiciansOrchestra) {
+	private void checkIfNull(ArrayList<MusicianInterface> musiciansOrchestra) {
 		if(musiciansOrchestra == null) {
 			throw new IllegalArgumentException("Given orchestra object is null, therefore cannot be processed.");
 		}

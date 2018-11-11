@@ -1,5 +1,9 @@
 package Business;
 
+import Utilities.ChangeInTempo;
+import Utilities.MusicianInterface;
+import Utilities.Tempo;
+
 public class Violist extends StringInstrumentMusician{
 
 	private int partCounter = 1;
@@ -9,6 +13,10 @@ public class Violist extends StringInstrumentMusician{
 		isInitialized = true;
 	}
 	
+	public Violist(MusicianInterface violist) {
+		this();
+	}
+
 	@Override
 	public String playPiece(Piece piece) {
 		checkInitialization();

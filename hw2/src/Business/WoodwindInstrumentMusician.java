@@ -2,6 +2,8 @@ package Business;
 
 import java.util.ArrayList;
 
+import Utilities.MusicianInterface;
+
 public class WoodwindInstrumentMusician implements MusicianInterface {
 
 	public String playPiece(Piece piece) {

@@ -12,8 +12,12 @@ public class FileInput {
 	
 	public String readPieceFromFile(String fileDirectory) {
 		checkInitialization();
+		if(fileDirectory == null) {
+			throw new IllegalArgumentException("Given file directory for the specified piece is null.");
+		}
 		return txtReader.readFromTxtFile(fileDirectory);
 	}
+	
 	
 	private void checkInitialization() {
 		if(!isInitialized) {

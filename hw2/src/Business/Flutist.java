@@ -2,6 +2,9 @@ package Business;
 
 import java.util.ArrayList;
 
+import Utilities.MusicianInterface;
+import Utilities.Tempo;
+
 public class Flutist extends WoodwindInstrumentMusician {
 
 	private int partCounter = 1;
@@ -11,6 +14,10 @@ public class Flutist extends WoodwindInstrumentMusician {
 		isInitialized = true;
 	}
 	
+	public Flutist(MusicianInterface flutist) {
+		this();
+	}
+
 	@Override
 	public String playPiece(Piece piece) {
 		checkInitialization();

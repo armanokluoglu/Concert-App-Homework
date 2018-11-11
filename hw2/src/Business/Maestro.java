@@ -1,5 +1,8 @@
 package Business;
 
+import Utilities.ChangeInTempo;
+import Utilities.Tempo;
+
 public class Maestro {
 
 	private boolean isInitialized = false;
@@ -8,6 +11,10 @@ public class Maestro {
 		isInitialized = true;
 	}
 	
+	public Maestro(Maestro maestro) {
+		this();
+	}
+
 	public void setTempo(int numberOfBeatsInAPart, Piece piece, int partOfPiece) {
 		if((numberOfBeatsInAPart <= 0) || (partOfPiece <= 0) || (partOfPiece > piece.getTempo().length)) {
 			throw new IllegalArgumentException("Either part of piece or number of beats in a part is invalid.");

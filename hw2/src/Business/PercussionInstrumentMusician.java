@@ -1,5 +1,7 @@
 package Business;
 
+import Utilities.MusicianInterface;
+
 public class PercussionInstrumentMusician implements MusicianInterface {
 	
 	public String playPiece(Piece piece) {

@@ -1,5 +1,9 @@
 package Business;
 
+import Utilities.ChangeInTempo;
+import Utilities.MusicianInterface;
+import Utilities.Tempo;
+
 public class BellPlayer extends PercussionInstrumentMusician {
 
 	private int partCounter = 1;
@@ -9,6 +13,10 @@ public class BellPlayer extends PercussionInstrumentMusician {
 		isInitialized = true;
 	}
 	
+	public BellPlayer(MusicianInterface bellPlayer) {
+		this();
+	}
+
 	@Override
 	public String playPiece(Piece piece) {
 		checkInitialization();
